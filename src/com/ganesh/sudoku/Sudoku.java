@@ -96,7 +96,6 @@ public class Sudoku {
 				else {
 					System.out.print("  ");
 				}
-				
 			}
 			if((i+1)%3==0) {
 				System.out.println();
@@ -201,6 +200,51 @@ public class Sudoku {
 		
 		
 		
+	}
+
+	public boolean checkAllInputValuesPresent(){
+		
+		for(int i=0;i<Constants.DIMENSION; i++) {
+			if((rowMap.get(i)).size() !=9) {
+				return false;
+			}
+		}
+		return true;
+		
+	}
+
+	public boolean checkSolution() {
+		
+		for(int i=0; i<Constants.DIMENSION; i++) {
+			for(int j=0; j<Constants.DIMENSION; j++) {
+				if(input[i][j] != solution[i][j]) {
+					return false;
+				}
+			}
+		}
+		return true;
+		
+	}
+
+	public void displaySolution() {
+		
+		System.out.println();
+		for(int i=0; i<Constants.DIMENSION; i++) {
+			for(int j=0; j<Constants.DIMENSION; j++) {
+				
+				if(j%3==0 && j!=0) {
+					System.out.print("| ");
+				}
+				System.out.print(solution[i][j]+" ");
+			}
+			if((i+1)%3==0) {
+				System.out.println();
+				System.out.println("-----------------------");
+			}
+			else {
+				System.out.println();
+			}
+		}	
 	}
 
 }
