@@ -1,7 +1,6 @@
 package com.ganesh.app;
 
 import java.util.Scanner;
-
 import com.ganesh.sudoku.Sudoku;
 
 public class App {
@@ -12,20 +11,20 @@ public class App {
 	public static void main(String[] args) {
 	
 		//Instantiating a Sudoku class object
-		Sudoku obj = new Sudoku();
-		int outerChoice, innerChoice, row, column, value;
+		Sudoku sudoku = new Sudoku();
+		int outerChoice;
 		
 		//
 		do {
 			displayOuterMenu();
-			outerChoice = reader.nextInt();
+			outerChoice = acceptUserInput();
 			
 			switch(outerChoice) {
 			case 1:
 				System.out.println("Board Initialized");
-				obj.initializeBoard();
-				obj.displayInput();
-				innerMenu(obj);
+				sudoku.initializeBoard();
+				sudoku.displayInput();
+				innerMenu(sudoku);
 				break;
 				
 			case 2:
@@ -43,12 +42,9 @@ public class App {
 
 	private static void innerMenu( Sudoku obj) {
 		int innerChoice;
-		int row;
-		int column;
-		int value;
 		do {
 			displayInnerMenu();
-			innerChoice = reader.nextInt();
+			innerChoice = acceptUserInput();
 			switch(innerChoice) {
 			case 1 : 
 				enterOrEditInputValue(obj);
@@ -63,8 +59,10 @@ public class App {
 				break;
 				
 			case 4:
-				submitBoard(obj);
-				innerChoice=7;
+				boolean success= submitBoard(obj);
+				if(success) {
+					innerChoice=7;
+				}
 				break;
 				
 			case 5:
@@ -74,7 +72,6 @@ public class App {
 				
 			case 6:
 				resetBoard(obj);
-				innerChoice=7;
 				break;
 				
 			default:
@@ -87,7 +84,7 @@ public class App {
 		System.out.println("********** Menu *******");
 		System.out.println("1 : Setup Board");
 		System.out.println("2 : Exit");
-		System.out.println("Enter your choice number");
+		System.out.println("Enter your choice number (Between 1 and 2)");
 	}
 
 	private static void displayInnerMenu() {
@@ -99,19 +96,23 @@ public class App {
 		System.out.println("5 : Give up and display Correct solution");
 		System.out.println("6 : Restart the game");
 		System.out.println("7 : Exit");
-		System.out.println("Enter your choice number");
+		System.out.println("Enter your choice number (Between 1 and 2)");
+	}
+	
+	private static int acceptUserInput() {
+		while (!reader.hasNextInt()) {
+			reader.next();
+			System.out.println("Incorrect Input! Enter integer number only");
+		}
+		int input = reader.nextInt();
+		return input;
 	}
 	
 	private static void enterOrEditInputValue(Sudoku obj) {
-		int row;
-		int column;
-		int value;
-		System.out.println("Enter the Row number (Between 1 and 9)");
-		row = reader.nextInt()-1;
-		System.out.println("Enter the Column number (Between 1 and 9)");
-		column = reader.nextInt()-1;
-		System.out.println("Enter the Value number (Between 1 and 9)");
-		value = reader.nextInt();
+		
+		int row = acceptRow();
+		int column = acceptColumn();
+		int value = acceptSudokuInputValue(); 
 		
 		if(obj.canEditInputValue(row,column)==false) {
 			System.out.println("Cannot edit the number that this location");
@@ -134,14 +135,61 @@ public class App {
 			System.out.println("Not correct value at that location");
 		}
 	}
+
+	private static int acceptRow() {
+		int row;
+		System.out.println("Enter the Row number (Between 1 and 9)");
+		while(true) {
+			while (!reader.hasNextInt()){
+				reader.next();
+				System.out.println("Incorrect Input! Enter valid Row number again (Between 1 and 9)");
+			}
+			row = reader.nextInt();
+			if(row>=1 && row<=9 ) {
+				break;
+			}
+			System.out.println("Incorrect Input! Enter valid Row number again (Between 1 and 9)");
+		}
+		return row-1;
+	}
+	
+	private static int acceptColumn() {
+		int column;
+		System.out.println("Enter the Column number (Between 1 and 9)");
+		while(true) {
+			while (!reader.hasNextInt()){
+				reader.next();
+				System.out.println("Incorrect Input! Enter valid Column number again (Between 1 and 9)");
+			}
+			column = reader.nextInt();
+			if(column>=1 && column<=9 ) {
+				break;
+			}
+			System.out.println("Incorrect Input! Enter valid Column number again (Between 1 and 9)");
+		}
+		return column-1;
+	}
+	
+	private static int acceptSudokuInputValue() {
+		int value;
+		System.out.println("Enter the Value number (Between 1 and 9)");
+		while(true) {
+			while (!reader.hasNextInt()){
+				reader.next();
+				System.out.println("Incorrect Input! Enter valid Value number again (Between 1 and 9)");
+			}
+			value = reader.nextInt();
+			if(value>=1 && value<=9 ) {
+				break;
+			}
+			System.out.println("Incorrect Input! Enter valid Value number again (Between 1 and 9)");
+		}
+		return value;
+	}
 	
 	private static void removeInputValue(Sudoku obj) {
-		int row;
-		int column;
-		System.out.println("Enter the Row number (Between 1 and 9)");
-		row = reader.nextInt()-1;
-		System.out.println("Enter the Column number (Between 1 and 9)");
-		column = reader.nextInt()-1;
+		int row = acceptRow();
+		int column = acceptColumn();
 		if(obj.canEditInputValue(row,column)==false) {
 			System.out.println("Cannot edit the number that this location");
 		}
@@ -161,11 +209,11 @@ public class App {
 			}
 		}
 		else {
-			System.out.println("Enter all the values in the Sudoku Matrix");
+			System.out.println("Board not Complete. Enter all the values in the Sudoku Matrix");
 		}
 	}
 	
-	private static void submitBoard(Sudoku obj) {
+	private static boolean submitBoard(Sudoku obj) {
 		if(obj.checkAllInputValuesPresent()) {
 			if(obj.checkSolution()) {
 				System.out.println("Congratulations!!!");
@@ -175,9 +223,11 @@ public class App {
 				System.out.println("Sorry,  Your Solution is incorrect");
 				System.out.println("You may try again from start");
 			}
+			return true;
 		}
 		else {
 			System.out.println("Cannot Submit. Enter all the values in the Sudoku Matrix");
+			return false;
 		}
 	}
 	
@@ -191,6 +241,5 @@ public class App {
 		System.out.println("Sudoku Board Reset");
 		obj.initializeBoard();
 		obj.displayInput();
-	}
-	
+	}	
 }
