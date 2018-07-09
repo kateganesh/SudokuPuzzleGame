@@ -62,7 +62,8 @@ Steps to Run the application
 2) Make sure you have JDK 8 installed on the system.
 3) Import the project in Eclipse.
 
-Sreen shots of the running application
+Sreen shots of the running application:
+
 I have added screen shots in issue section. You can click the issue tab on top to check the screen shots of the application
 
 Thank you!!
