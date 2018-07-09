@@ -66,6 +66,12 @@ Sreen shots of the running application:
 
 I have added screen shots in issue section. You can click the issue tab on top to check the screen shots of the application
 
+I have used the puzzle question from the following link
+
+https://en.wikipedia.org/wiki/Sudoku
+
+Link has question as well as solution
+
 Thank you!!
 
 
