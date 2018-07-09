@@ -62,65 +62,10 @@ Steps to Run the application
 2) Make sure you have JDK 8 installed on the system.
 3) Import the project in Eclipse.
 
-Following are the screen shot of the working command line application
+Sreen shots of the running application
+I have added screen shots in issue section. You can click the issue tab on top to check the screen shots of the application
 
+Thank you!!
 
-********** Menu *******
-1 : Setup Board
-2 : Exit
-Enter your choice number (Between 1 and 2)
-1
-Board Initialized
-
-5 3   |   7   |       
-6     | 1 9 5 |       
-  9 8 |       |   6   
------------------------
-8     |   6   |     3 
-4     | 8   3 |     1 
-7     |   2   |     6 
------------------------
-  6   |       | 2 8   
-      | 4 1 9 |     5 
-      |   8   |   7 9 
------------------------
-******* Menu ********
-1 : Enter new value OR edit a value in Sudoku
-2 : Remove the input value
-3 : Check Board if solution is complete
-4 : Submit the solution
-5 : Give up and display Correct solution
-6 : Restart the game
-7 : Exit
-Enter your choice number (Between 1 and 2)
-1
-Enter the Row number (Between 1 and 9)
-1
-Enter the Column number (Between 1 and 9)
-3
-Enter the Value number (Between 1 and 9)
-4
-
-5 3 4 |   7   |       
-6     | 1 9 5 |       
-  9 8 |       |   6   
------------------------
-8     |   6   |     3 
-4     | 8   3 |     1 
-7     |   2   |     6 
------------------------
-  6   |       | 2 8   
-      | 4 1 9 |     5 
-      |   8   |   7 9 
------------------------
-******* Menu ********
-1 : Enter new value OR edit a value in Sudoku
-2 : Remove the input value
-3 : Check Board if solution is complete
-4 : Submit the solution
-5 : Give up and display Correct solution
-6 : Restart the game
-7 : Exit
-Enter your choice number (Between 1 and 2)
 
 
