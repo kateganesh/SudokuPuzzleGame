@@ -8,13 +8,17 @@ public class App {
 	//Scanner class used to get the input from the user
 	static Scanner reader = new Scanner(System.in);
 	
+	
+	/*
+	 * Starting point of the application
+	 */
 	public static void main(String[] args) {
 	
 		//Instantiating a Sudoku class object
 		Sudoku sudoku = new Sudoku();
 		int outerChoice;
 		
-		//
+		//Loop to display the menu and accept input from user
 		do {
 			displayOuterMenu();
 			outerChoice = acceptUserInput();
@@ -39,8 +43,11 @@ public class App {
 		System.out.println("Application Closed");
 
 	}
-
-	private static void innerMenu( Sudoku obj) {
+	
+	/*
+	 * Accepts the user input and maps to the relevant method
+	 */
+	private static void innerMenu(Sudoku obj) {
 		int innerChoice;
 		do {
 			displayInnerMenu();
@@ -80,6 +87,9 @@ public class App {
 		}while(innerChoice!=7);
 	}
 	
+	/*
+	 * To display the Outer Menu of the application
+	 */
 	private static void displayOuterMenu() {
 		System.out.println("********** Menu *******");
 		System.out.println("1 : Setup Board");
@@ -87,6 +97,9 @@ public class App {
 		System.out.println("Enter your choice number (Between 1 and 2)");
 	}
 
+	/*
+	 * To display the Inner Menu of the Application
+	 */
 	private static void displayInnerMenu() {
 		System.out.println("******* Menu ********");
 		System.out.println("1 : Enter new value OR edit a value in Sudoku");
@@ -99,6 +112,11 @@ public class App {
 		System.out.println("Enter your choice number (Between 1 and 2)");
 	}
 	
+	/*
+	 * Accepts the input value from the user and check and validates the entered input
+	 * to integer value only 
+	 * Returns the entered input
+	 */
 	private static int acceptUserInput() {
 		while (!reader.hasNextInt()) {
 			reader.next();
@@ -108,10 +126,17 @@ public class App {
 		return input;
 	}
 	
+	/*
+	 * Method gets the row number, column column and value from the user.
+	 * Checks if user is allowed to edit or input new value at that location.
+	 * Check if the entered value is correct according to sudoku logic.
+	 * Checks if the value is already present at that location, if present 
+	 * modifies the value or enter the new value
+	 */
 	private static void enterOrEditInputValue(Sudoku obj) {
 		
-		int row = acceptRow();
-		int column = acceptColumn();
+		int row = acceptRowNumber();
+		int column = acceptColumnNumber();
 		int value = acceptSudokuInputValue(); 
 		
 		if(obj.canEditInputValue(row,column)==false) {
@@ -136,7 +161,12 @@ public class App {
 		}
 	}
 
-	private static int acceptRow() {
+	/*
+	 * Gets the row number from the user and verifies the entered input 
+	 * is integer value between 1 and 9 only
+	 * Returns the row-1 value as array starts from 0 in java
+	 */
+	private static int acceptRowNumber() {
 		int row;
 		System.out.println("Enter the Row number (Between 1 and 9)");
 		while(true) {
@@ -153,7 +183,12 @@ public class App {
 		return row-1;
 	}
 	
-	private static int acceptColumn() {
+	/*
+	 * Gets the column number from the user and verifies the entered input 
+	 * is integer value between 1 and 9 only
+	 * Returns the column-1 value as array starts from 0 in java
+	 */
+	private static int acceptColumnNumber() {
 		int column;
 		System.out.println("Enter the Column number (Between 1 and 9)");
 		while(true) {
@@ -170,6 +205,11 @@ public class App {
 		return column-1;
 	}
 	
+	/*
+	 * Gets the input value number from the user and verifies the entered input 
+	 * is integer value between 1 and 9 only
+	 * Returns the input value 
+	 */
 	private static int acceptSudokuInputValue() {
 		int value;
 		System.out.println("Enter the Value number (Between 1 and 9)");
@@ -187,9 +227,14 @@ public class App {
 		return value;
 	}
 	
+	/*
+	 * Gets the row number and column number from the user
+	 * Checks if user is allowed to make changes at that location
+	 *  If allowed, removes the value from that location
+	 */
 	private static void removeInputValue(Sudoku obj) {
-		int row = acceptRow();
-		int column = acceptColumn();
+		int row = acceptRowNumber();
+		int column = acceptColumnNumber();
 		if(obj.canEditInputValue(row,column)==false) {
 			System.out.println("Cannot edit the number that this location");
 		}
@@ -199,6 +244,11 @@ public class App {
 		}
 	}
 
+	/*
+	 * Checks if all the input values are entered in the sudoku matrix
+	 * If all values are present, checks if the solution is correct or not and
+	 * displays the appropriate message.
+	 */
 	private static void checkBoard(Sudoku obj) {
 		if(obj.checkAllInputValuesPresent()) {
 			if(obj.checkSolution()) {
@@ -213,6 +263,12 @@ public class App {
 		}
 	}
 	
+	/*
+	 * Checks if all the input values are entered in the sudoku matrix
+	 * Checks if the sudoku has been correctly solved.
+	 * If solved correctly, displays success message and if not
+	 * displays failure message
+	 */
 	private static boolean submitBoard(Sudoku obj) {
 		if(obj.checkAllInputValuesPresent()) {
 			if(obj.checkSolution()) {
@@ -231,12 +287,18 @@ public class App {
 		}
 	}
 	
+	/*
+	 * Displays the correct solution to the user
+	 */
 	private static void giveupAndDisplaySolution(Sudoku obj) {
 		System.out.println("Thank you for trying. It is first step towards learning");
 		System.out.println("Following is the Correct Solution");
 		obj.displaySolution();
 	}
 	
+	/*
+	 * Re initialized the sudoku board the initial state
+	 */
 	private static void resetBoard(Sudoku obj) {
 		System.out.println("Sudoku Board Reset");
 		obj.initializeBoard();

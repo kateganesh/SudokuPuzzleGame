@@ -1,8 +1,14 @@
 package com.ganesh.constants;
 
 public class Constants {
+	
+	// Size of the sudoku matrix
 	public static final int DIMENSION = 9;
 	
+	/*
+	 * Input matrix for the sudoku problem with initial values.
+	 * Zero represent the value to be input  by user
+	 */
 	public static final int[][] SAVEDINPUT = {{5, 3, 0, 0, 7, 0, 0, 0, 0},
 											  {6, 0, 0, 1, 9, 5, 0, 0, 0},
 											  {0, 9, 8, 0, 0, 0, 0, 6, 0},
@@ -13,6 +19,7 @@ public class Constants {
 											  {0, 0, 0, 4, 1, 9, 0, 0, 5},
 											  {0, 0, 0, 0, 8, 0, 0, 7, 9}};
 	
+	//Solution to the sudoku problem
 	public static final int[][] SAVEDSOLUTION = {{5, 3, 4, 6, 7, 8, 9, 1, 2},
 											     {6, 7, 2, 1, 9, 5, 3, 4, 8},
 											     {1, 9, 8, 3, 4, 2, 5, 6, 7},
